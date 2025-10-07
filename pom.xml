@@ -23,7 +23,6 @@
   <inceptionYear>2017</inceptionYear>
 
   <repositories>
-    <!-- Bootstrap repository to locate the parent pom when the parent pom has not been build locally. -->
     <repository>
       <id>jboss-public-repository-group</id>
       <name>JBoss Public Repository Group</name>
@@ -41,7 +40,6 @@
   </repositories>
 
   <properties>
-    <!-- Define JaCoCo agent argLine property to avoid Surefire failure when JaCoCo is not enabled. -->
     <jacoco.agent.argLine/>
 
     <sonar.projectKey>optaweb-employee-rostering</sonar.projectKey>
@@ -64,7 +62,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <!-- Internal modules -->
       <dependency>
         <groupId>org.optaweb.employeerostering</groupId>
         <artifactId>optaweb-employee-rostering-frontend</artifactId>
@@ -104,7 +101,6 @@
         <version>${project.version}</version>
       </dependency>
 
-      <!-- BOMs -->
       <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-bom</artifactId>
@@ -113,7 +109,6 @@
         <scope>import</scope>
       </dependency>
 
-      <!-- Excel -->
       <dependency>
         <groupId>org.apache.poi</groupId>
         <artifactId>poi</artifactId>
@@ -139,6 +134,18 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>net.revelc.code</groupId>
+          <artifactId>impsort-maven-plugin</artifactId>
+          <version>1.4.1</version>
+          <dependencies>
+            <dependency>
+              <groupId>org.codehaus.plexus</groupId>
+              <artifactId>plexus-utils</artifactId>
+              <version>3.4.1</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
           <executions>
@@ -162,14 +169,7 @@
   </build>
 
   <profiles>
-    <!-- TODO: Remove me when Quarkus upgraded to 1.13 -->
-    <!-- See https://github.com/quarkusio/quarkus/pull/14384 for details -->
     <profile>
-      <!--
-        TODO: For moving the coverage measurement from Travis to Jenkins, add the repository name to
-        SONARCLOUD_ENABLED_REPOSITORIES in
-        https://github.com/kiegroup/kie-jenkins-scripts/blob/main/job-dsls/jobs/pr_jobs.groovy
-      -->
       <id>run-code-coverage</id>
       <dependencies>
         <dependency>
